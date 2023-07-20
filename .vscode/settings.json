@@ -1,0 +1,4 @@
+{
+  "cmake.configureOnOpen": true,
+  "cmake.sourceDirectory": "E:/chat_app/chat/windows/runner"
+}
