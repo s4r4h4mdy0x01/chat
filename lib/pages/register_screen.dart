@@ -80,7 +80,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           height: 14,
                         ),
                         MyTextFormfield(
+                          obscureText: true,
                             validator: (data) {
+                              
                               if (data!.isEmpty || data.length < 6) {
                                 return 'Enter passward greater than 6 letters';
                               }
@@ -101,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               setState(() {});
                               try {
                                 await registerUser();
-                                 Navigator.pushNamed(context, ChatPage.id);
+                                 Navigator.pushNamed(context, ChatPage.id,arguments: email);
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'weak-password') {
                                   showMessageToUser(context,
@@ -110,11 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   showMessageToUser(context,
                                       'The account already exists for that email');
                                 }
-                                //  else {
-                                //   showMessageToUser(
-                                //       context, 'done successfully');
-                                //   Navigator.pushNamed(context, ChatPage.id);
-                                // }
+                                
                               } catch (e) {
                                 showMessageToUser(
                                     context, 'there was an error');

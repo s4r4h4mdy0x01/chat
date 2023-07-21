@@ -1,27 +1,37 @@
-import 'package:chat/const/colors.dart';
 import 'package:chat/models/models_mess.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubble extends StatelessWidget {
-   const ChatBubble({required this.mess});
+  ChatBubble({
+    required this.mess,
+    required this.color,
+    this.radiusLeft = 0,
+    this.radiusRight = 0,
+    this.alignment = Alignment.bottomLeft,
+  });
   final Message mess;
+  final Color color;
+  final double radiusLeft;
+  final double radiusRight;
+  AlignmentGeometry alignment;
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.bottomLeft,
+      alignment: alignment,
       child: Container(
-      margin:  const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-        padding:const EdgeInsets.only(left: 16, top: 32, bottom: 32, right: 32),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding:
+            const EdgeInsets.only(left: 16, top: 32, bottom: 32, right: 32),
         decoration: BoxDecoration(
-            color: kPrimaryColor,
-            borderRadius:const  BorderRadius.only(
-              topRight: Radius.circular(32),
-              topLeft: Radius.circular(32),
-              bottomRight: Radius.circular(32),
-            )),
+            color: color,
+            borderRadius: BorderRadius.only(
+                topRight: const Radius.circular(32),
+                topLeft: const Radius.circular(32),
+                bottomRight: Radius.circular(radiusRight),
+                bottomLeft: Radius.circular(radiusLeft))),
         child: Text(
-        mess.message  ,
-          style: TextStyle(color: Colors.white),
+          mess.message,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );

@@ -16,6 +16,7 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var email = ModalRoute.of(context)!.settings.arguments;
     return StreamBuilder<QuerySnapshot>(
       stream: messages.orderBy(kTime).snapshots(),
       builder: (context, snapshot) {
@@ -46,7 +47,18 @@ class ChatPage extends StatelessWidget {
                     controller: _controller,
                     itemCount: messageList.length,
                     itemBuilder: (context, index) {
-                      return ChatBubble(mess: messageList[index]);
+                      return messageList[index].id == email
+                          ? ChatBubble(
+                              mess: messageList[index],
+                              color: kPrimaryColor,
+                              radiusRight: 32,
+                            )
+                          : ChatBubble(
+                              mess: messageList[index],
+                              color: kColorMesstwo,
+                              radiusLeft: 32,
+                              alignment: Alignment.bottomRight,
+                            );
                     },
                   ),
                 ),
@@ -56,10 +68,7 @@ class ChatPage extends StatelessWidget {
                     controller: controller,
                     onSubmitted: (data) {
                       messages.add(
-                        {
-                          kMessage: data,
-                          kTime: DateTime.now(),
-                        },
+                        {kMessage: data, kTime: DateTime.now(), 'id': email},
                       );
                       controller.clear();
                       _controller.animateTo(
@@ -69,10 +78,9 @@ class ChatPage extends StatelessWidget {
                     },
                     decoration: InputDecoration(
                       hintText: 'Send Message....',
-                      suffixIcon: Icon(
-                        Icons.send,
-                        color: kPrimaryColor,
-                      ),
+                      suffixIcon: IconButton(onPressed: () {
+                        
+                      },icon:const Icon(Icons.send),),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: kPrimaryColor),
                         borderRadius: BorderRadius.circular(16),
@@ -87,7 +95,7 @@ class ChatPage extends StatelessWidget {
             ),
           );
         } else {
-          return Text('loading');
+          return const Text('loading');
         }
       },
     );

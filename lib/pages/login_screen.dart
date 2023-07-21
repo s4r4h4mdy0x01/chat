@@ -75,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                           height: 14,
                         ),
                         MyTextFormfield(
+                          obscureText: true,
                             validator: (data) {
                               if (data!.isEmpty || data.length < 6) {
                                 return 'Enter passward greater than 6 letters';
@@ -97,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                               try {
 
                                 await loginUser();
-                                Navigator.pushNamed(context, ChatPage.id);
+                               Navigator.pushNamed(context,  ChatPage.id,arguments: email);
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
                                   showMessageToUser(
@@ -106,11 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                                   showMessageToUser(context,
                                       'Wrong password provided for that user.');
                                 } 
-                                // else {
-                                //   showMessageToUser(
-                                //       context, 'done successfully');
-                                       
-                                // }
+                               
                               } catch (e) {
                                 showMessageToUser(
                                     context, 'there was an error');
