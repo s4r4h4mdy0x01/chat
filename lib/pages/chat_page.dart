@@ -78,9 +78,10 @@ class ChatPage extends StatelessWidget {
                     },
                     decoration: InputDecoration(
                       hintText: 'Send Message....',
-                      suffixIcon: IconButton(onPressed: () {
-                        
-                      },icon:const Icon(Icons.send),),
+                      suffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.send),
+                      ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: kPrimaryColor),
                         borderRadius: BorderRadius.circular(16),
