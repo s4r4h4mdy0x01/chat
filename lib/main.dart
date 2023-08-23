@@ -1,5 +1,6 @@
 import 'package:chat/pages/chat_page.dart';
 import 'package:chat/pages/cubits/cubit_login/login_cubit.dart';
+import 'package:chat/pages/cubits/cubit_register/register_cubit.dart';
 import 'package:chat/pages/login_screen.dart';
 import 'package:chat/pages/register_screen.dart';
 import 'package:chat/const/colors.dart';
@@ -24,8 +25,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginCubit(),
+        ),
+       BlocProvider(
+          create: (context) => RegisterCubit(),
+        ),
+       
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
