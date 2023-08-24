@@ -1,4 +1,5 @@
 import 'package:chat/pages/chat_page.dart';
+import 'package:chat/pages/cubits/cubit_chat/chat_cubit.dart';
 import 'package:chat/pages/cubits/cubit_login/login_cubit.dart';
 import 'package:chat/pages/cubits/cubit_login/login_state.dart';
 import 'package:chat/pages/register_screen.dart';
@@ -24,6 +25,7 @@ class LoginPage extends StatelessWidget {
         if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
+          BlocProvider.of<ChatCubit>(context).getMessages();
           Navigator.pushNamed(context, ChatPage.id, arguments: email);
           isLoading = false;
         } else if (state is LoginFailure) {
@@ -31,7 +33,7 @@ class LoginPage extends StatelessWidget {
           isLoading = false;
         }
       },
-      builder:(context, state) =>  ModalProgressHUD(
+      builder: (context, state) => ModalProgressHUD(
         inAsyncCall: isLoading,
         child: Scaffold(
           backgroundColor: kPrimaryColor,
@@ -138,10 +140,5 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> loginUser() async {
-    UserCredential user = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email!, password: password!);
   }
 }

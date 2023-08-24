@@ -147,8 +147,5 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Future<void> registerUser() async {
-    UserCredential user = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email!, password: password!);
-  }
+ 
 }
